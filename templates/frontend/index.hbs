@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Assignment mongo nd node</title>
+    <style>
+        body{
+            margin: 0px;
+            padding: 0px;
+        }
+        .container{
+            display: grid;
+            grid-template-columns: 40% auto 40%;
+            grid-template-rows: auto;
+            grid-template-areas: 'first' 'second' 'third';
+        }
+        #f1{
+            grid-area: first;
+            display: flex;
+            flex-direction: column;
+        }
+        #f2{
+            grid-area: third;
+            display: flex;
+            flex-direction: column;
+        }
+        .form{
+            border-radius: 5%;
+            border: black 0.5px solid;
+            width: 30%;
+            padding: 10px;
+        }
+        .form>input{
+            width: 100%;
+        }
+        .form>textarea{
+            width: 100%;
+        }
+        .form>button{
+            background-color: green;
+            color:white;
+            border: none;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+        <h1 align='center'>BLOGS</h1>
+        <form action="/myapp/{{user_id}}" method="GET">
+            <input id="skip" name="skip" value={{frwd}} style="display: none;">
+            <button onclick="dec()" type="submit">prev</button>
+            <button onclick="inc()" type="submit">next</button>
+        </form>
+
+    <div class="container" >
+        <form id="f1" class="form" action="/server/{{user_id}}" method="POST">
+            <input name="blog" placeholder="blog title"><br/><br/>
+            <textarea name="describe" placeholder="blog description" rows="5"></textarea><br/>
+            <button type="submit">update</button>
+        </form>
+
+        <form id="f2" class="form" action="/server/add/{{user_id}}" method="POST">
+            <input name="blog" placeholder="blog title"><br/><br/>
+            <textarea name="describe" placeholder="blog description" rows="5"></textarea><br/>
+            <button type="submit">add</button>
+        </form>
+
+        <br/>
+        {{#each data as |item|}}
+        <div style="border: black 0.1px solid; width: 60%;" >
+            <h3>{{item.title}}</h3>
+            <p>{{item.description}}</p>
+        </div>
+        {{/each}}
+        <img src="laptop.jpeg">
+    </div>
+    <script>
+
+    function inc() {
+        let inpt=document.getElementById('skip')
+        inpt.value=parseInt(inpt.value)+5
+    }
+    function dec() {
+        let inpt=document.getElementById('skip')
+        inpt.value=parseInt(inpt.value)-5
+    }
+    </script>
+</body>
+</html>
