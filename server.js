@@ -3,8 +3,6 @@ const blogs= require('./models/blogs.js')
 const User= require('./models/users.js')
 const path=require('path')
 const express=require('express')
-const sharp=require('sharp')
-const multer=require('multer')
 const hbs=require('hbs')
 const app=express();
 const port=2000;
@@ -17,24 +15,12 @@ app.use(express.static(__dirname+'/templates/frontend'))
 const viewpath = path.join(__dirname,'/templates/frontend')
 app.set('views', viewpath);
 
-// const partialspath=path.join(__dirname, '/templates/partials')
-// hbs.registerPartials(partialspath);
-
-// const profile_pic=multer()
-
-// app.get('/upload', (req, res)=>{
-//     res.render('file.hbs')
-// })
-
-// app.post('/download', profile_pic.single('file'), (req, res)=>{
-//     console.log(req.file.buffer)
-//     res.send('hello upload')
-// })
+const partialspath=path.join(__dirname, '/templates/partials')
+hbs.registerPartials(partialspath);
 
 app.get('/signup', async(req, res)=>{
     try{
         msg=req.query.msg
-        // console.log(msg)
         res.render('signup.hbs', {msg})
     }catch{
         res.status(400).send('it is in catch')
